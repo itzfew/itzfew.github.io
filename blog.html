@@ -24,7 +24,6 @@
             padding: 0;
         }
 
-        
         /* Top Navigation Bar */
         .top-nav {
             display: flex;
@@ -40,6 +39,7 @@
             display: flex;
             align-items: center;
         }
+
         /* Hamburger icon positioned at the top-right corner */
         .hamburger-icon {
             display: none;
@@ -48,8 +48,8 @@
             position: absolute;
             top: 10px;
             right: 0px; /* Position it at the top-right corner */
-         
         }
+
         .logo-container img {
             width: 50px; /* Adjust size */
             height: auto;
@@ -61,6 +61,11 @@
             font-weight: bold;
             color: #007bff;
             margin-left: 10px; /* Adds space between logo and name */
+            text-decoration: none; /* Make sure the link isn't underlined */
+        }
+
+        .site-name:hover {
+            color: #0056b3; /* Change color on hover */
         }
 
         .nav-links {
@@ -188,7 +193,7 @@
             color: #007bff;
         }
 
-/* Responsive Design */
+        /* Responsive Design */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -223,48 +228,48 @@
             const navLinks = document.querySelector('.nav-links');
             navLinks.classList.toggle('active');
         }
+
         // Function to fetch and display posts dynamically from posts.json
-async function loadPosts() {
-    const response = await fetch('posts.json'); // Fetch posts from posts.json
-    const posts = await response.json(); // Parse the JSON data
+        async function loadPosts() {
+            const response = await fetch('posts.json'); // Fetch posts from posts.json
+            const posts = await response.json(); // Parse the JSON data
 
-    // Sort the posts by date in descending order (latest posts first)
-    posts.sort((a, b) => {
-        // Convert date strings to Date objects for comparison
-        return new Date(b.date) - new Date(a.date);
-    });
+            // Sort the posts by date in descending order (latest posts first)
+            posts.sort((a, b) => {
+                return new Date(b.date) - new Date(a.date);
+            });
 
-    const postList = document.getElementById('post-list');
-    posts.forEach(post => {
-        // Create list item for each post
-        const postItem = document.createElement('li');
-        postItem.classList.add('post-item');
+            const postList = document.getElementById('post-list');
+            posts.forEach(post => {
+                // Create list item for each post
+                const postItem = document.createElement('li');
+                postItem.classList.add('post-item');
 
-        // Post date
-        const postDate = document.createElement('div');
-        postDate.classList.add('post-date');
-        postDate.textContent = post.date;
+                // Post date
+                const postDate = document.createElement('div');
+                postDate.classList.add('post-date');
+                postDate.textContent = post.date;
 
-        // Post title
-        const postTitle = document.createElement('h2');
-        const postLink = document.createElement('a');
-        postLink.href = `post.html?id=${post.id}`; // Link to the full post
-        postLink.textContent = post.title;
-        postTitle.appendChild(postLink);
+                // Post title
+                const postTitle = document.createElement('h2');
+                const postLink = document.createElement('a');
+                postLink.href = `post.html?id=${post.id}`; // Link to the full post
+                postLink.textContent = post.title;
+                postTitle.appendChild(postLink);
 
-        // Post excerpt
-        const postExcerpt = document.createElement('p');
-        postExcerpt.textContent = post.excerpt;
+                // Post excerpt
+                const postExcerpt = document.createElement('p');
+                postExcerpt.textContent = post.excerpt;
 
-        // Append everything to postItem
-        postItem.appendChild(postDate);
-        postItem.appendChild(postTitle);
-        postItem.appendChild(postExcerpt);
+                // Append everything to postItem
+                postItem.appendChild(postDate);
+                postItem.appendChild(postTitle);
+                postItem.appendChild(postExcerpt);
 
-        // Append postItem to postList
-        postList.appendChild(postItem);
-    });
-}
+                // Append postItem to postList
+                postList.appendChild(postItem);
+            });
+        }
 
         // Load posts when the page is loaded
         window.onload = loadPosts;
@@ -272,53 +277,52 @@ async function loadPosts() {
 
 </head>
 <body>
+
 <!-- Top Navigation Bar -->
-    <header>
-        <div class="top-nav">
-            <div class="logo-container">
-                <!-- Logo -->
-                <img src="img/logo.png" alt="Logo" class="logo">
-                <!-- Website Name -->
-                <div class="site-name">Edu.hub</div>
-            </div>
-            <nav class="nav-links">
-                <!-- Navigation links to actual pages -->
-                <a href="blog.html">Blog</a>
-                <a href="about.html">About Us</a>
-                <a href="https://itzfew.github.io/Blog/Com_studymaterial_app.apk">Install APK</a>
-                <a href="https://t.me/FREESTUDYApp">Telegram</a>
-            </nav>
+<header>
+    <div class="top-nav">
+        <div class="logo-container">
+            <!-- Logo -->
+            <img src="img/logo.png" alt="Logo" class="logo">
+            <!-- Website Name (wrapped in an anchor tag) -->
+            <a href="index.html" class="site-name">Edu.hub</a>
         </div>
-        <!-- Hamburger Icon -->
-            <div class="hamburger-icon" onclick="toggleMenu()">&#9776;</div>
+        <nav class="nav-links">
+            <!-- Navigation links to actual pages -->
+            <a href="blog.html">Blog</a>
+            <a href="about.html">About Us</a>
+            <a href="https://itzfew.github.io/Blog/Com_studymaterial_app.apk">Install APK</a>
+            <a href="https://t.me/FREESTUDYApp">Telegram</a>
+        </nav>
     </div>
-    </header>
+    <!-- Hamburger Icon -->
+    <div class="hamburger-icon" onclick="toggleMenu()">&#9776;</div>
+</header>
 
+<!-- Main Content -->
+<main>
+    <section>
+        <h1>Blog</h1>
+        <ul id="post-list" class="post-list">
+            <!-- Blog posts will be inserted here dynamically -->
+        </ul>
+    </section>
+</main>
 
-    <!-- Main Content -->
-    <main>
-        <section>
-            <h1>Blog</h1>
-            <ul id="post-list" class="post-list">
-                <!-- Blog posts will be inserted here dynamically -->
-            </ul>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <nav class="footer-links">
-                <a href="about.html">About Us</a>
-                <a href="contact.html">Contact Us</a>
-                <a href="https://t.me/FREESTUDYApp">Telegram</a>
-                <a href="privacy.html">Privacy Policy</a>
-            </nav>
-            <div class="footer-email">
-                <p>Contact us at: <a href="mailto:itzme.eduhub.contact@gmail.com">itzme.eduhub.contact@gmail.com</a></p>
-            </div>
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <nav class="footer-links">
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="https://t.me/FREESTUDYApp">Telegram</a>
+            <a href="privacy.html">Privacy Policy</a>
+        </nav>
+        <div class="footer-email">
+            <p>Contact us at: <a href="mailto:itzme.eduhub.contact@gmail.com">itzme.eduhub.contact@gmail.com</a></p>
         </div>
-    </footer>
+    </div>
+</footer>
 
 </body>
 </html>
