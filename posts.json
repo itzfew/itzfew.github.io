@@ -1,0 +1,14 @@
+[
+  {
+    "title": "First Post",
+    "date": "2024-12-26",
+    "excerpt": "This is an excerpt of the first post. It gives a brief idea about the content.",
+    "content": "Welcome to my blog! This is the content of the first post.\n\n## Introduction\nThis blog is created using a static site with dynamic content loading.\n\nStay tuned for more posts!"
+  },
+  {
+    "title": "Second Post",
+    "date": "2024-12-27",
+    "excerpt": "This is the second post. It talks about the importance of blogging.",
+    "content": "In this post, we discuss the importance of blogging and how it can help you share your ideas with the world.\n\n## Why Blog?\nBlogging is an excellent way to communicate and build a community online."
+  }
+]
