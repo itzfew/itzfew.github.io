@@ -19,5 +19,13 @@
         "date": "Dec 2, 2024",
         "excerpt": "Access past papers for JEE Main 2024, including miscellaneous and regular exam papers. Open the respective links to begin your practice.",
         "content": "Here is a collection of JEE Main 2024 exam papers. You can explore papers for various dates and shifts, including miscellaneous papers. Start preparing for JEE Main with these past papers. Below is the list of the available papers <br><br><button style=\"border: 2px solid black; background-color: white; color: black; padding: 10px 20px; cursor: pointer;\" onclick=\"window.location.href='https://itzfew.github.io/Quizes/'\">Take the Test</button>"
-    }
+    },
+    {
+  "id": "1",
+  "title": "NEET Chapter Wise Weightage 2025 for Botany",
+  "date": "Dec 26, 2024",
+  "excerpt": "The detailed chapter-wise weightage for Botany in NEET 2025 is provided. This will help students focus on key topics.",
+  "content": "<h3>NEET Chapter Wise Weightage 2025 - Botany</h3><table border='1' cellpadding='10' cellspacing='0' style='border-collapse: collapse; width: 100%;'><thead><tr><th>Chapters/Topics</th><th>Weightage (%)</th></tr></thead><tbody><tr><td>Biodiversity and Conservation</td><td>4%</td></tr><tr><td>Anatomy of Flowering Plants</td><td>7%</td></tr><tr><td>Cell : The Unit of Life</td><td>5%</td></tr><tr><td>Respiration in Plants</td><td>4%</td></tr><tr><td>Microbes in Human Welfare</td><td>4%</td></tr><tr><td>Cell Cycle and Cell Division</td><td>9%</td></tr><tr><td>Molecular Basis of Inheritance</td><td>14%</td></tr><tr><td>Principles of Inheritance and Variation</td><td>10%</td></tr><tr><td>Sexual Reproduction in Flowering Plants</td><td>6%</td></tr><tr><td>Ecosystem</td><td>4%</td></tr><tr><td>Morphology of Flowering Plants</td><td>6%</td></tr><tr><td>Plant Growth and Development</td><td>6%</td></tr><tr><td>The Living World</td><td>1%</td></tr><tr><td>Plant Kingdom</td><td>7%</td></tr><tr><td>Biological Classification</td><td>3%</td></tr><tr><td>Organisms and Populations</td><td>4%</td></tr><tr><td>Photosynthesis in Higher Plants</td><td>4%</td></tr></tbody></table>"
+}
+
 ]
