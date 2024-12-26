@@ -24,16 +24,7 @@
             padding: 0;
         }
 
-        /* Top Heading for Website */
-        .site-heading {
-            background-color: #007bff;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            font-size: 24px;
-            font-weight: bold;
-        }
-
+        
         /* Top Navigation Bar */
         .top-nav {
             display: flex;
@@ -42,12 +33,25 @@
             padding: 20px;
             background-color: white;
             border-bottom: 1px solid #ccc;
+            position: relative;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
         }
 
         .logo-container img {
-            width: 100px; /* Adjust size */
-            height: 100px; /* Make it square */
-            border-radius: 50%; /* Circle the logo */
+            width: 50px; /* Adjust size */
+            height: auto;
+            border-radius: 50%; /* Optional: to make logo circular */
+        }
+
+        .site-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+            margin-left: 10px; /* Adds space between logo and name */
         }
 
         .nav-links {
@@ -246,15 +250,17 @@
 
 </head>
 <body>
-    <!-- Top Navigation Bar -->
+<!-- Top Navigation Bar -->
     <header>
         <div class="top-nav">
-            
             <div class="logo-container">
+                <!-- Logo -->
                 <img src="img/logo.png" alt="Logo" class="logo">
+                <!-- Website Name -->
+                <div class="site-name">Edu.hub</div>
             </div>
-            <h2>Edu.hub</h2>
             <nav class="nav-links">
+                <!-- Navigation links to actual pages -->
                 <a href="blog.html">Blog</a>
                 <a href="about.html">About Us</a>
                 <a href="install.html">Install APK</a>
@@ -262,6 +268,7 @@
             </nav>
         </div>
     </header>
+
 
     <!-- Main Content -->
     <main>
