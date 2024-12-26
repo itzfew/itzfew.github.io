@@ -224,41 +224,47 @@
             navLinks.classList.toggle('active');
         }
         // Function to fetch and display posts dynamically from posts.json
-        async function loadPosts() {
-            const response = await fetch('posts.json'); // Fetch posts from posts.json
-            const posts = await response.json(); // Parse the JSON data
+async function loadPosts() {
+    const response = await fetch('posts.json'); // Fetch posts from posts.json
+    const posts = await response.json(); // Parse the JSON data
 
-            const postList = document.getElementById('post-list');
-            posts.forEach(post => {
-                // Create list item for each post
-                const postItem = document.createElement('li');
-                postItem.classList.add('post-item');
+    // Sort the posts by date in descending order (latest posts first)
+    posts.sort((a, b) => {
+        // Convert date strings to Date objects for comparison
+        return new Date(b.date) - new Date(a.date);
+    });
 
-                // Post date
-                const postDate = document.createElement('div');
-                postDate.classList.add('post-date');
-                postDate.textContent = post.date;
+    const postList = document.getElementById('post-list');
+    posts.forEach(post => {
+        // Create list item for each post
+        const postItem = document.createElement('li');
+        postItem.classList.add('post-item');
 
-                // Post title
-                const postTitle = document.createElement('h2');
-                const postLink = document.createElement('a');
-                postLink.href = `post.html?id=${post.id}`; // Link to the full post
-                postLink.textContent = post.title;
-                postTitle.appendChild(postLink);
+        // Post date
+        const postDate = document.createElement('div');
+        postDate.classList.add('post-date');
+        postDate.textContent = post.date;
 
-                // Post excerpt
-                const postExcerpt = document.createElement('p');
-                postExcerpt.textContent = post.excerpt;
+        // Post title
+        const postTitle = document.createElement('h2');
+        const postLink = document.createElement('a');
+        postLink.href = `post.html?id=${post.id}`; // Link to the full post
+        postLink.textContent = post.title;
+        postTitle.appendChild(postLink);
 
-                // Append everything to postItem
-                postItem.appendChild(postDate);
-                postItem.appendChild(postTitle);
-                postItem.appendChild(postExcerpt);
+        // Post excerpt
+        const postExcerpt = document.createElement('p');
+        postExcerpt.textContent = post.excerpt;
 
-                // Append postItem to postList
-                postList.appendChild(postItem);
-            });
-        }
+        // Append everything to postItem
+        postItem.appendChild(postDate);
+        postItem.appendChild(postTitle);
+        postItem.appendChild(postExcerpt);
+
+        // Append postItem to postList
+        postList.appendChild(postItem);
+    });
+}
 
         // Load posts when the page is loaded
         window.onload = loadPosts;
