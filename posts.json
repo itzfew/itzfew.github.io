@@ -1,4 +1,4 @@
- [
+[
   {
     "id": "1",
     "title": "The National Medical Commission (NMC) Finalizes NEET 2025 Syllabus",
@@ -11,13 +11,13 @@
     "title": "Play Quizzes for NEET and JEE Past Year Papers",
     "date": "Dec 1, 2024",
     "excerpt": "Practice for NEET and JEE exams by attempting past year papers and quizzes. Click the link below to start the tests for multiple years and papers.",
-    "content": "Practice and enhance your preparation by playing quizzes for past year papers of NEET and JEE exams. You can access different sets of exams, including JEE Main, JEE Advanced, NEET, and AIPMT papers across various years. Start your practice by following this link: [Take the Test](https://itzfew.github.io/Quizes/)"
+    "content": "Practice and enhance your preparation by playing quizzes for past year papers of NEET and JEE exams. You can access different sets of exams, including JEE Main, JEE Advanced, NEET, and AIPMT papers across various years. Start your practice by following this link below.\n\n<button onclick=\"window.location.href='https://itzfew.github.io/Quizes/'\">Take the Test</button>"
   },
   {
     "id": "3",
     "title": "JEE Main 2024 Exam Papers - Miscellaneous and Regular Papers",
     "date": "Dec 2, 2024",
     "excerpt": "Access past papers for JEE Main 2024, including miscellaneous and regular exam papers. Open the respective links to begin your practice.",
-    "content": "Here is a collection of JEE Main 2024 exam papers. You can explore papers for various dates and shifts, including miscellaneous papers. Start preparing for JEE Main with these past papers. Below is the list of the available papers:\n\n- [JEE Main 2024 Misc Paper 1](https://itzfew.github.io/Quizes/)\n- [JEE Main 2024 Misc Paper 2](https://itzfew.github.io/Quizes/)\n- [JEE Main 2024 Misc Paper 3](https://itzfew.github.io/Quizes/)\n- [JEE Main 2024 Misc Paper 4](https://itzfew.github.io/Quizes/)\n- [JEE Main 2024 31st January Morning Shift](https://itzfew.github.io/Quizes/)\n- [JEE Main 2024 31st January Evening Shift](https://itzfew.github.io/Quizes/)\n\nClick each link to take the respective quiz."
+    "content": "Here is a collection of JEE Main 2024 exam papers. You can explore papers for various dates and shifts, including miscellaneous papers. Start preparing for JEE Main with these past papers. Below is the list of the available papers:\n\n- <button onclick=\"window.location.href='https://itzfew.github.io/Quizes/'\">JEE Main 2024 Misc Paper 1</button>\n- <button onclick=\"window.location.href='https://itzfew.github.io/Quizes/'\">JEE Main 2024 Misc Paper 2</button>\n- <button onclick=\"window.location.href='https://itzfew.github.io/Quizes/'\">JEE Main 2024 Misc Paper 3</button>\n- <button onclick=\"window.location.href='https://itzfew.github.io/Quizes/'\">JEE Main 2024 Misc Paper 4</button>\n- <button onclick=\"window.location.href='https://itzfew.github.io/Quizes/'\">JEE Main 2024 31st January Morning Shift</button>\n- <button onclick=\"window.location.href='https://itzfew.github.io/Quizes/'\">JEE Main 2024 31st January Evening Shift</button>"
   }
 ]
