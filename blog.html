@@ -92,18 +92,28 @@
         .post-item {
             margin-bottom: 20px;
             padding: 15px 0;
-            
         }
 
+        /* Post title styling */
         .post-item h2 {
             font-size: 22px;
             margin-bottom: 10px;
-            color: #007bff; /* Make the title blue */
+            color: #007bff; /* Make the title blue initially */
+        }
+
+        /* Hover effect for the post title link */
+        .post-item h2 a {
+            text-decoration: none;
+            color: inherit; /* Inherit the color from the parent h2 */
+        }
+
+        /* Ensure that the title link stays blue on hover */
+        .post-item h2 a:hover {
+            color: #007bff; /* Keep the title blue when hovered */
         }
 
         .post-item p {
             font-size: 16px;
-            
         }
 
         .post-item a {
@@ -119,7 +129,6 @@
             font-size: 14px;
             color: #555;
             margin-bottom: 10px;
-            
         }
 
         /* Footer */
@@ -257,7 +266,7 @@
     <!-- Main Content -->
     <main>
         <section>
-            <h1>Blog Posts</h1>
+            <h1>Blog</h1>
             <ul id="post-list" class="post-list">
                 <!-- Blog posts will be inserted here dynamically -->
             </ul>
