@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog - My Website</title>
+
     <style>
         /* Basic Reset */
         * {
@@ -46,12 +47,6 @@
             text-decoration: none;
             color: black;
             font-size: 18px;
-            display: flex;
-            align-items: center;
-        }
-
-        .nav-links a i {
-            margin-right: 8px;
         }
 
         .nav-links a:hover {
@@ -122,7 +117,6 @@
         .footer-links {
             display: flex;
             gap: 20px;
-            flex-wrap: wrap;
         }
 
         .footer-links a {
@@ -173,21 +167,52 @@
                 gap: 10px;
             }
         }
-
-        @media (max-width: 480px) {
-            .nav-links a {
-                font-size: 16px;
-            }
-
-            .footer-links a {
-                font-size: 14px;
-            }
-
-            .footer-email p {
-                font-size: 14px;
-            }
-        }
     </style>
+
+    <script>
+        // Function to fetch and display posts dynamically
+        async function loadPosts() {
+            const posts = [
+                {
+                    "title": "First Post",
+                    "date": "2024-12-26",
+                    "excerpt": "This is an excerpt of the first post. It gives a brief idea about the content.",
+                    "content": "Welcome to my blog! This is the content of the first post.\n\n## Introduction\nThis blog is created using a static site with dynamic content loading.\n\nStay tuned for more posts!"
+                },
+                {
+                    "title": "Second Post",
+                    "date": "2024-12-27",
+                    "excerpt": "This is the second post. It talks about the importance of blogging.",
+                    "content": "In this post, we discuss the importance of blogging and how it can help you share your ideas with the world.\n\n## Why Blog?\nBlogging is an excellent way to communicate and build a community online."
+                }
+            ];
+
+            const postList = document.getElementById('post-list');
+            posts.forEach(post => {
+                // Create a list item for each post
+                const postItem = document.createElement('li');
+                postItem.classList.add('post-item');
+                
+                const postTitle = document.createElement('h2');
+                const postLink = document.createElement('a');
+                postLink.href = '#'; // Link to the post detail page
+                postLink.textContent = post.title;
+
+                postTitle.appendChild(postLink);
+
+                const postExcerpt = document.createElement('p');
+                postExcerpt.textContent = post.excerpt;
+
+                postItem.appendChild(postTitle);
+                postItem.appendChild(postExcerpt);
+                postList.appendChild(postItem);
+            });
+        }
+
+        // Load posts when the page is ready
+        window.onload = loadPosts;
+    </script>
+
 </head>
 <body>
 
@@ -195,7 +220,7 @@
     <header>
         <div class="top-nav">
             <div class="logo-container">
-                <img src="logo.png" alt="Logo" class="logo">
+                <img src="https://via.placeholder.com/150" alt="Logo" class="logo">
             </div>
             <nav class="nav-links">
                 <a href="blog.html"><i class="fas fa-home"></i> Blog</a>
@@ -210,14 +235,8 @@
     <main>
         <section>
             <h1>Blog Posts</h1>
-            <ul class="post-list">
-                <!-- Jekyll Loop to display posts -->
-                {% for post in site.posts %}
-                    <li class="post-item">
-                        <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
-                        <p>{{ post.excerpt }}</p>
-                    </li>
-                {% endfor %}
+            <ul id="post-list" class="post-list">
+                <!-- Blog posts will be inserted here dynamically -->
             </ul>
         </section>
     </main>
