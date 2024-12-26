@@ -199,12 +199,6 @@
     </style>
 
     <script>
-    // Function to toggle the visibility of the navigation menu
-    function toggleMenu() {
-        const navLinks = document.querySelector('.nav-links');
-        navLinks.classList.toggle('active');
-    }
-
     // Function to fetch and display the full post based on the id in the query string
     async function loadPost() {
         const urlParams = new URLSearchParams(window.location.search); // Get the query string parameters
@@ -217,6 +211,9 @@
 
         const response = await fetch('posts.json'); // Fetch posts from posts.json
         const posts = await response.json(); // Parse the JSON data
+
+        // Sort the posts by date (descending order)
+        posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
         // Find the post by id
         const post = posts.find(p => p.id === postId);
@@ -241,11 +238,15 @@
         document.getElementById('share-facebook').href = facebookLink;
         document.getElementById('share-linkedin').href = linkedinLink;
         document.getElementById('share-email').href = emailLink;
+
+        // Optionally: You can display multiple posts (if required)
+        // Here, we just load the post that matches the 'id' query parameter, but you can add a loop to display all posts in sorted order
     }
 
     // Load the post when the page is loaded
     window.onload = loadPost;
 </script>
+
 
 </head>
 <body>
