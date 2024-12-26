@@ -23,6 +23,7 @@
             padding: 0;
         }
 
+
         /* Top Navigation Bar */
         .top-nav {
             display: flex;
@@ -31,7 +32,7 @@
             padding: 20px;
             background-color: white;
             border-bottom: 1px solid #ccc;
-            position: relative;
+            position: relative;  /* Ensures absolute positioning of the hamburger */
         }
 
         .logo-container {
@@ -50,7 +51,6 @@
             font-weight: bold;
             color: #007bff;
             margin-left: 10px; /* Adds space between logo and name */
-            cursor: pointer; /* Makes the site name clickable */
         }
 
         .nav-links {
@@ -76,6 +76,7 @@
             position: absolute;
             top: 10px;
             right: 0px; /* Position it at the top-right corner */
+         
         }
 
         /* Main Content */
@@ -174,7 +175,7 @@
             color: #007bff;
         }
 
-        /* Responsive Design */
+/* Responsive Design */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -211,11 +212,9 @@
         <div class="top-nav">
             <div class="logo-container">
                 <!-- Logo -->
-                <a href="index.html" class="logo-container"> <!-- Make the logo clickable -->
-                    <img src="img/logo.png" alt="Logo" class="logo">
-                </a>
+                <img src="img/logo.png" alt="Logo" class="logo">
                 <!-- Website Name -->
-                <a href="index.html" class="site-name">Edu.hub</a> <!-- Make the website name clickable -->
+                <div class="site-name">Edu.hub</div>
             </div>
             <nav class="nav-links">
                 <!-- Navigation links to actual pages -->
