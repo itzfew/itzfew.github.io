@@ -14,20 +14,10 @@
 
         body {
             font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            color: #333;
+            background-color: white; /* White background for the body */
+            color: #333; /* Text color for body */
             line-height: 1.6;
             padding: 20px;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: white;
-            padding: 20px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
         }
 
         h1 {
@@ -44,6 +34,7 @@
             display: block;
             font-size: 16px;
             margin-bottom: 5px;
+            color: black; /* Labels in black */
         }
 
         input, textarea {
@@ -54,13 +45,18 @@
             border-radius: 4px;
         }
 
+        input, textarea {
+            color: black; /* Text color for input and textarea */
+            background-color: white; /* White background for input/textarea */
+        }
+
         textarea {
             resize: vertical;
             height: 150px;
         }
 
         button {
-            background-color: #007bff;
+            background-color: #000000;
             color: white;
             font-size: 16px;
             padding: 10px 20px;
@@ -71,7 +67,7 @@
         }
 
         button:hover {
-            background-color: #0056b3;
+            background-color: #000000;
         }
 
         .footer {
@@ -82,31 +78,30 @@
 </head>
 <body>
 
-    <div class="container">
-        <h1>Contact Us</h1>
-        <form id="contactForm">
-            <!-- Name and Email (Subject) -->
-            <div class="form-group">
-                <label for="name">Your Name</label>
-                <input type="text" id="name" name="name" placeholder="Enter your name" required>
-            </div>
-
-            <div class="form-group">
-                <label for="email">Your Email</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email" required>
-            </div>
-
-            <!-- Message (Body) -->
-            <div class="form-group">
-                <label for="message">Your Message</label>
-                <textarea id="message" name="message" placeholder="Enter your message" required></textarea>
-            </div>
-
-            <button type="button" onclick="sendEmail()">Send Email</button>
-        </form>
-        <div class="footer">
-            <p>We look forward to hearing from you!</p>
+    <h1>Contact Us</h1>
+    <form id="contactForm">
+        <!-- Name and Email (Subject) -->
+        <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
         </div>
+
+        <div class="form-group">
+            <label for="email">Your Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        </div>
+
+        <!-- Message (Body) -->
+        <div class="form-group">
+            <label for="message">Your Message</label>
+            <textarea id="message" name="message" placeholder="Enter your message" required></textarea>
+        </div>
+
+        <button type="button" onclick="sendEmail()">Send Email</button>
+    </form>
+
+    <div class="footer">
+        <p>We look forward to hearing from you!</p>
     </div>
 
     <script>
