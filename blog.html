@@ -21,6 +21,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            padding: 0;
         }
 
         /* Top Navigation Bar */
@@ -79,14 +80,17 @@
 
         .post-item {
             margin-bottom: 20px;
-            padding: 20px;
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 15px 0;
         }
 
         .post-item h2 {
-            font-size: 24px;
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #007bff; /* Make the title blue */
+        }
+
+        .post-item p {
+            font-size: 16px;
         }
 
         .post-item a {
@@ -96,6 +100,12 @@
 
         .post-item a:hover {
             color: #007bff;
+        }
+
+        .post-date {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
         }
 
         /* Footer */
@@ -170,46 +180,44 @@
     </style>
 
     <script>
-        // Function to fetch and display posts dynamically
+        // Function to fetch and display posts dynamically from posts.json
         async function loadPosts() {
-            const posts = [
-                {
-                    "title": "First Post",
-                    "date": "2024-12-26",
-                    "excerpt": "This is an excerpt of the first post. It gives a brief idea about the content.",
-                    "content": "Welcome to my blog! This is the content of the first post.\n\n## Introduction\nThis blog is created using a static site with dynamic content loading.\n\nStay tuned for more posts!"
-                },
-                {
-                    "title": "Second Post",
-                    "date": "2024-12-27",
-                    "excerpt": "This is the second post. It talks about the importance of blogging.",
-                    "content": "In this post, we discuss the importance of blogging and how it can help you share your ideas with the world.\n\n## Why Blog?\nBlogging is an excellent way to communicate and build a community online."
-                }
-            ];
+            const response = await fetch('posts.json'); // Fetch posts from posts.json
+            const posts = await response.json(); // Parse the JSON data
 
             const postList = document.getElementById('post-list');
             posts.forEach(post => {
-                // Create a list item for each post
+                // Create list item for each post
                 const postItem = document.createElement('li');
                 postItem.classList.add('post-item');
-                
+
+                // Post date
+                const postDate = document.createElement('div');
+                postDate.classList.add('post-date');
+                postDate.textContent = post.date;
+
+                // Post title
                 const postTitle = document.createElement('h2');
                 const postLink = document.createElement('a');
-                postLink.href = '#'; // Link to the post detail page
+                postLink.href = `post.html?id=${post.id}`; // Link to the full post
                 postLink.textContent = post.title;
-
                 postTitle.appendChild(postLink);
 
+                // Post excerpt
                 const postExcerpt = document.createElement('p');
                 postExcerpt.textContent = post.excerpt;
 
+                // Append everything to postItem
+                postItem.appendChild(postDate);
                 postItem.appendChild(postTitle);
                 postItem.appendChild(postExcerpt);
+
+                // Append postItem to postList
                 postList.appendChild(postItem);
             });
         }
 
-        // Load posts when the page is ready
+        // Load posts when the page is loaded
         window.onload = loadPosts;
     </script>
 
@@ -223,10 +231,10 @@
                 <img src="https://via.placeholder.com/150" alt="Logo" class="logo">
             </div>
             <nav class="nav-links">
-                <a href="blog.html"><i class="fas fa-home"></i> Blog</a>
-                <a href="about.html"><i class="fas fa-users"></i> About Us</a>
-                <a href="install.html"><i class="fas fa-download"></i> Install APK</a>
-                <a href="https://telegram.me/yourchannel"><i class="fab fa-telegram-plane"></i> Telegram</a>
+                <a href="blog.html">Blog</a>
+                <a href="about.html">About Us</a>
+                <a href="install.html">Install APK</a>
+                <a href="https://telegram.me/yourchannel">Telegram</a>
             </nav>
         </div>
     </header>
@@ -256,7 +264,5 @@
         </div>
     </footer>
 
-    <!-- FontAwesome for icons -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
 </body>
 </html>
