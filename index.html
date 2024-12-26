@@ -30,7 +30,7 @@
             padding: 20px;
             background-color: white;
             border-bottom: 1px solid #ccc;
-            position: relative;
+            position: relative;  /* Ensures absolute positioning of the hamburger */
         }
 
         .logo-container {
@@ -64,6 +64,17 @@
 
         .nav-links a:hover {
             color: #007bff;
+        }
+
+        /* Hamburger icon positioned at the top-right corner */
+        .hamburger-icon {
+            display: none;
+            font-size: 30px;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 0px; /* Position it at the top-right corner */
+         
         }
 
         /* Main Content */
@@ -163,70 +174,45 @@
             color: #007bff;
         }
 
-            .footer-content {
-                flex-direction: column;
-                align-items: center;
-                gap: 15px;
-            }
+        .footer-content {
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
 
-            .footer-links {
-                flex-direction: column;
-                align-items: center;
-                gap: 10px;
-            }
+        .footer-links {
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
         /* Responsive Design */
-@media (max-width: 768px) {
-    /* Top Navigation */
-    .top-nav {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px; /* Add some spacing between elements */
-        padding: 20px 10px;
-    }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+            }
 
-    .top-nav > * {
-        width: calc(50% - 10px); /* Each child gets 50% width minus a little gap */
-    }
+            .hamburger-icon {
+                display: block;
+            }
 
-    /* Navigation Links */
-    .nav-links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 15px; /* Add spacing between links */
-        width: 100%;
-    }
+            .nav-links.active {
+                display: flex;
+            }
 
-    .nav-links > * {
-        width: calc(50% - 7.5px); /* Make each link occupy 50% minus spacing */
-    }
+            .top-nav {
+                flex-wrap: wrap;
+                padding: 15px;
+            }
 
-    /* Footer Content */
-    .footer-content {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 15px;
-        align-items: center;
-        width: 100%;
-    }
-
-    .footer-content > * {
-        width: calc(50% - 7.5px); /* Each element takes 50% width minus gap */
-    }
-
-    /* Footer Links */
-    .footer-links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        align-items: center;
-        width: 100%;
-    }
-
-    .footer-links > * {
-        width: calc(50% - 5px); /* Make each footer link take 50% width minus gap */
-    }
-}
-
+            .top-nav > * {
+                width: 100%;
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -247,6 +233,8 @@
                 <a href="install.html">Install APK</a>
                 <a href="https://telegram.me/yourchannel">Telegram</a>
             </nav>
+            <!-- Hamburger Icon -->
+            <div class="hamburger-icon" onclick="toggleMenu()">&#9776;</div>
         </div>
     </header>
 
@@ -292,6 +280,12 @@
     </footer>
 
     <script>
+        // Function to toggle the visibility of the navigation menu
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
+
         // Function to fetch posts from posts.json and display the latest 3 posts
         async function loadLatestPosts() {
             const response = await fetch('posts.json'); // Fetch posts from posts.json
