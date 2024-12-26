@@ -35,8 +35,14 @@
             padding: 20px;
             background-color: white;
             border-bottom: 1px solid #ccc;
+            position: relative;
         }
-/* Hamburger icon positioned at the top-right corner */
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        /* Hamburger icon positioned at the top-right corner */
         .hamburger-icon {
             display: none;
             font-size: 30px;
@@ -47,15 +53,16 @@
          
         }
         .logo-container img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%; /* Circle logo */
+            width: 50px; /* Adjust size */
+            height: auto;
+            border-radius: 50%; /* Optional: to make logo circular */
         }
 
-        .site-heading {
+        .site-name {
             font-size: 24px;
             font-weight: bold;
-            color: black;  /* No background color, just text */
+            color: #007bff;
+            margin-left: 10px; /* Adds space between logo and name */
         }
 
         .nav-links {
