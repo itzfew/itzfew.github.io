@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog Post - My Website</title>
 
+    <!-- Include Font Awesome Library for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
     <style>
         /* Basic Reset */
         * {
@@ -193,6 +196,23 @@
             color: #007bff;
         }
 
+        /* Share buttons container */
+        .share-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .share-buttons a {
+            font-size: 24px;
+            color: black; /* Black icons */
+            transition: color 0.3s;
+        }
+
+        .share-buttons a:hover {
+            color: #007bff; /* Change color on hover */
+        }
+
         /* Custom CSS for embedded styles */
         .embedded-style {
             margin-top: 20px;
@@ -234,6 +254,22 @@
                     postEmbeddedStyle.innerHTML = post.embeddedCss;
                 }
 
+                // Set share URLs
+                const shareText = encodeURIComponent(post.title);
+                const postUrl = window.location.href; // Get current URL
+
+                const whatsappUrl = `https://wa.me/?text=${shareText} ${postUrl}`;
+                const telegramUrl = `https://t.me/share/url?url=${postUrl}&text=${shareText}`;
+                const emailUrl = `mailto:?subject=${shareText}&body=${postUrl}`;
+                const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${postUrl}`;
+                const twitterUrl = `https://twitter.com/intent/tweet?text=${shareText}&url=${postUrl}`;
+
+                // Add share buttons with dynamic URLs
+                document.getElementById('whatsapp-share').setAttribute('href', whatsappUrl);
+                document.getElementById('telegram-share').setAttribute('href', telegramUrl);
+                document.getElementById('email-share').setAttribute('href', emailUrl);
+                document.getElementById('facebook-share').setAttribute('href', facebookUrl);
+                document.getElementById('twitter-share').setAttribute('href', twitterUrl);
             } else {
                 document.getElementById('post-content').textContent = "Post not found.";
             }
@@ -251,12 +287,9 @@
             <a href="index.html">
             <div class="logo-container">
                 <!-- Logo -->
-                
-                
                 <img src="img/logo.png" alt="Logo" class="logo">
                 <!-- Website Name -->
                 <div class="site-name">Edu.hub</div>
-                
             </div></a>
             <nav class="nav-links">
                 <!-- Navigation links to actual pages -->
@@ -277,6 +310,15 @@
             <div class="post-date" id="post-date"></div>
             <h2 id="post-title" class="post-title"></h2>
             <div id="post-content" class="post-content"></div>
+
+            <!-- Share Buttons -->
+            <div class="share-buttons">
+                <a id="whatsapp-share" href="#" target="_blank" class="fab fa-whatsapp"></a>
+                <a id="telegram-share" href="#" target="_blank" class="fab fa-telegram"></a>
+                <a id="email-share" href="#" target="_blank" class="fas fa-envelope"></a>
+                <a id="facebook-share" href="#" target="_blank" class="fab fa-facebook"></a>
+                <a id="twitter-share" href="#" target="_blank" class="fab fa-twitter"></a>
+            </div>
 
             <!-- Embedded CSS (if any) -->
             <div id="post-embedded-style" class="embedded-style"></div>
