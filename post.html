@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Post - My Website</title>
+
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            color: black;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        /* Top Navigation Bar */
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: white;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .logo-container img {
+            width: 150px;
+            height: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: black;
+            font-size: 18px;
+        }
+
+        .nav-links a:hover {
+            color: #007bff;
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            padding: 40px;
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        section h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        section p {
+            font-size: 18px;
+        }
+
+        .post-date {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .post-content {
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #f8f8f8;
+            padding: 20px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: black;
+            font-size: 16px;
+        }
+
+        .footer-links a:hover {
+            color: #007bff;
+        }
+
+        .footer-email p {
+            font-size: 16px;
+        }
+
+        .footer-email a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .footer-email a:hover {
+            color: #007bff;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .top-nav {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px 10px;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+        }
+    </style>
+
+    <script>
+        // Function to fetch and display the full post based on the id in the query string
+        async function loadPost() {
+            const urlParams = new URLSearchParams(window.location.search); // Get the query string parameters
+            const postId = urlParams.get('id'); // Get the post id from the query string
+
+            if (!postId) {
+                alert('Post ID is missing!');
+                return;
+            }
+
+            const response = await fetch('posts.json'); // Fetch posts from posts.json
+            const posts = await response.json(); // Parse the JSON data
+
+            // Find the post by id
+            const post = posts.find(p => p.id === postId);
+
+            if (!post) {
+                alert('Post not found!');
+                return;
+            }
+
+            // Insert post content into the page
+            document.getElementById('post-title').textContent = post.title;
+            document.getElementById('post-date').textContent = post.date;
+            document.getElementById('post-content').textContent = post.content;
+        }
+
+        // Load the post when the page is loaded
+        window.onload = loadPost;
+    </script>
+
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header>
+        <div class="top-nav">
+            <div class="logo-container">
+                <img src="img/logo.png" alt="Logo" class="logo">
+            </div>
+            <nav class="nav-links">
+                <a href="blog.html">Blog</a>
+                <a href="about.html">About Us</a>
+                <a href="install.html">Install APK</a>
+                <a href="https://telegram.me/yourchannel">Telegram</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section>
+            <h1 id="post-title">Loading...</h1>
+            <div id="post-date" class="post-date">Loading...</div>
+            <div id="post-content" class="post-content">Loading...</div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <nav class="footer-links">
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="https://telegram.me/yourchannel">Telegram</a>
+                <a href="privacy.html">Privacy Policy</a>
+            </nav>
+            <div class="footer-email">
+                <p>Contact us at: <a href="mailto:chwlla@gmail.com">chwlla@gmail.com</a></p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
