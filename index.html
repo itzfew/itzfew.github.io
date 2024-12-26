@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edu.hub - Blog Website</title>
     <style>
-        /* Basic Reset */
+/* Basic Reset */
         * {
             margin: 0;
             padding: 0;
@@ -23,7 +23,7 @@
             padding: 0;
         }
 
-
+        
         /* Top Navigation Bar */
         .top-nav {
             display: flex;
@@ -32,14 +32,23 @@
             padding: 20px;
             background-color: white;
             border-bottom: 1px solid #ccc;
-            position: relative;  /* Ensures absolute positioning of the hamburger */
+            position: relative;
         }
 
         .logo-container {
             display: flex;
             align-items: center;
         }
-
+        /* Hamburger icon positioned at the top-right corner */
+        .hamburger-icon {
+            display: none;
+            font-size: 30px;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 0px; /* Position it at the top-right corner */
+         
+        }
         .logo-container img {
             width: 50px; /* Adjust size */
             height: auto;
@@ -67,71 +76,6 @@
         .nav-links a:hover {
             color: #007bff;
         }
-
-        /* Hamburger icon positioned at the top-right corner */
-        .hamburger-icon {
-            display: none;
-            font-size: 30px;
-            cursor: pointer;
-            position: absolute;
-            top: 10px;
-            right: 0px; /* Position it at the top-right corner */
-         
-        }
-
-        /* Main Content */
-        main {
-            flex: 1; /* Ensures main content expands to fill space */
-            padding: 40px;
-        }
-
-        section {
-            margin-bottom: 40px;
-        }
-
-        section h1 {
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
-
-        section p {
-            font-size: 18px;
-        }
-
-        /* Latest Posts */
-        .latest-posts {
-            margin-bottom: 40px;
-        }
-
-        .post-item {
-            margin-bottom: 20px;
-        }
-
-        .post-title {
-            font-size: 22px;
-            color: #007bff;
-        }
-
-        .post-date {
-            font-size: 14px;
-            color: #555;
-            margin-bottom: 10px;
-        }
-
-        .view-more-button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            color: black;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .view-more-button:hover {
-            background-color: #0056b3;
-        }
-
-        /* Footer */
         footer {
             background-color: #f8f8f8;
             padding: 20px;
@@ -203,6 +147,58 @@
             }
         }
         
+        /* Main Content */
+        main {
+            flex: 1; /* Ensures main content expands to fill space */
+            padding: 40px;
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        section h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        section p {
+            font-size: 18px;
+        }
+
+        /* Latest Posts */
+        .latest-posts {
+            margin-bottom: 40px;
+        }
+
+        .post-item {
+            margin-bottom: 20px;
+        }
+
+        .post-title {
+            font-size: 22px;
+            color: #007bff;
+        }
+
+        .post-date {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .view-more-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            color: black;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .view-more-button:hover {
+            background-color: #0056b3;
+        }
+
     </style>
 </head>
 <body>
