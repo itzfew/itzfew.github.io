@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Website</title>
+    <title>Edu.hub - Blog Website</title>
     <style>
         /* Basic Reset */
         * {
@@ -33,9 +33,22 @@
             position: relative;
         }
 
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
         .logo-container img {
-            width: 150px;
+            width: 50px; /* Adjust size */
             height: auto;
+            border-radius: 50%; /* Optional: to make logo circular */
+        }
+
+        .site-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+            margin-left: 10px; /* Adds space between logo and name */
         }
 
         .nav-links {
@@ -47,12 +60,6 @@
             text-decoration: none;
             color: black;
             font-size: 18px;
-            display: flex;
-            align-items: center;
-        }
-
-        .nav-links a i {
-            margin-right: 8px;
         }
 
         .nav-links a:hover {
@@ -170,13 +177,17 @@
     <header>
         <div class="top-nav">
             <div class="logo-container">
+                <!-- Logo -->
                 <img src="logo.png" alt="Logo" class="logo">
+                <!-- Website Name -->
+                <div class="site-name">Edu.hub</div>
             </div>
             <nav class="nav-links">
-                <a href="#blog"><i class="fas fa-home"></i> Blog</a>
-                <a href="#about"><i class="fas fa-users"></i> About Us</a>
-                <a href="#install"><i class="fas fa-download"></i> Install APK</a>
-                <a href="#telegram"><i class="fab fa-telegram-plane"></i> Telegram</a>
+                <!-- Navigation links to actual pages -->
+                <a href="blog.html">Blog</a>
+                <a href="about.html">About Us</a>
+                <a href="install.html">Install APK</a>
+                <a href="https://telegram.me/yourchannel">Telegram</a>
             </nav>
         </div>
     </header>
@@ -208,10 +219,10 @@
     <footer>
         <div class="footer-content">
             <nav class="footer-links">
-                <a href="#about">About Us</a>
-                <a href="#contact">Contact Us</a>
-                <a href="#telegram">Telegram</a>
-                <a href="#privacy-policy">Privacy Policy</a>
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="https://telegram.me/yourchannel">Telegram</a>
+                <a href="privacy.html">Privacy Policy</a>
             </nav>
             <div class="footer-email">
                 <p>Contact us at: <a href="mailto:chwlla@gmail.com">chwlla@gmail.com</a></p>
@@ -219,7 +230,5 @@
         </div>
     </footer>
 
-    <!-- FontAwesome for icons -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
 </body>
 </html>
