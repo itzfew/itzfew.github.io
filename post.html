@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog Post - My Website</title>
 
-    <!-- Font Awesome for social icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
     <style>
         /* Basic Reset */
         * {
@@ -27,7 +24,6 @@
             padding: 0;
         }
 
-        
         /* Top Navigation Bar */
         .top-nav {
             display: flex;
@@ -43,6 +39,7 @@
             display: flex;
             align-items: center;
         }
+
         /* Hamburger icon positioned at the top-right corner */
         .hamburger-icon {
             display: none;
@@ -51,8 +48,8 @@
             position: absolute;
             top: 10px;
             right: 0px; /* Position it at the top-right corner */
-         
         }
+
         .logo-container img {
             width: 50px; /* Adjust size */
             height: auto;
@@ -80,6 +77,7 @@
         .nav-links a:hover {
             color: #007bff;
         }
+
         footer {
             background-color: #f8f8f8;
             padding: 20px;
@@ -123,7 +121,7 @@
             color: #007bff;
         }
 
-/* Responsive Design */
+        /* Responsive Design */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -151,8 +149,6 @@
             }
         }
 
-        
-
         /* Main Content */
         main {
             flex: 1;
@@ -172,29 +168,23 @@
             font-size: 18px;
         }
 
+        /* Post content styling */
+        .post-content {
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
         .post-date {
             font-size: 14px;
             color: #555;
             margin-bottom: 10px;
         }
 
-        .post-content {
-            font-size: 18px;
-            line-height: 1.8;
-        }
-
-        .social-share {
-            margin-top: 20px;
-        }
-
-        .social-share a {
-            margin-right: 15px;
-            font-size: 20px;
+        /* Post title styling */
+        .post-title {
+            font-size: 28px;
+            margin-bottom: 10px;
             color: #007bff;
-        }
-
-        .social-share a:hover {
-            color: #0056b3;
         }
     </style>
 
@@ -204,59 +194,36 @@
             const navLinks = document.querySelector('.nav-links');
             navLinks.classList.toggle('active');
         }
-    // Function to fetch and display the full post based on the id in the query string
-    async function loadPost() {
-        const urlParams = new URLSearchParams(window.location.search); // Get the query string parameters
-        const postId = urlParams.get('id'); // Get the post id from the query string
 
-        if (!postId) {
-            alert('Post ID is missing!');
-            return;
+        // Function to fetch and display the post dynamically from posts.json
+        async function loadPost() {
+            const params = new URLSearchParams(window.location.search);
+            const postId = params.get('id');
+            const response = await fetch('posts.json'); // Fetch posts from posts.json
+            const posts = await response.json(); // Parse the JSON data
+
+            const post = posts.find(post => post.id === postId);
+
+            if (post) {
+                // Populate the post content dynamically
+                const postTitle = document.getElementById('post-title');
+                const postDate = document.getElementById('post-date');
+                const postContent = document.getElementById('post-content');
+
+                postTitle.textContent = post.title;
+                postDate.textContent = post.date;
+                postContent.textContent = post.content;
+            } else {
+                document.getElementById('post-content').textContent = "Post not found.";
+            }
         }
 
-        const response = await fetch('posts.json'); // Fetch posts from posts.json
-        const posts = await response.json(); // Parse the JSON data
-
-        // Sort the posts by date (descending order)
-        posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-        // Find the post by id
-        const post = posts.find(p => p.id === postId);
-
-        if (!post) {
-            alert('Post not found!');
-            return;
-        }
-
-        // Insert post content into the page
-        document.getElementById('post-title').textContent = post.title;
-        document.getElementById('post-date').textContent = post.date;
-        document.getElementById('post-content').innerHTML = post.content; // Use innerHTML here to render HTML
-
-        // Create share links dynamically
-        const twitterLink = `https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(window.location.href)}`;
-        const facebookLink = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
-        const linkedinLink = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(window.location.href)}&title=${encodeURIComponent(post.title)}`;
-        const emailLink = `mailto:?subject=${encodeURIComponent(post.title)}&body=${encodeURIComponent(post.content)}%0D%0A%0D%0A${encodeURIComponent(window.location.href)}`;
-
-        document.getElementById('share-twitter').href = twitterLink;
-        document.getElementById('share-facebook').href = facebookLink;
-        document.getElementById('share-linkedin').href = linkedinLink;
-        document.getElementById('share-email').href = emailLink;
-
-        // Optionally: You can display multiple posts (if required)
-        // Here, we just load the post that matches the 'id' query parameter, but you can add a loop to display all posts in sorted order
-    }
-
-    // Load the post when the page is loaded
-    window.onload = loadPost;
-</script>
-
+        // Load post when the page is loaded
+        window.onload = loadPost;
+    </script>
 
 </head>
 <body>
-
-    
     <!-- Top Navigation Bar -->
     <header>
         <div class="top-nav">
@@ -273,25 +240,18 @@
                 <a href="https://itzfew.github.io/Blog/Com_studymaterial_app.apk">Install APK</a>
                 <a href="https://t.me/FREESTUDYApp">Telegram</a>
             </nav>
-            <!-- Hamburger Icon -->
-            <div class="hamburger-icon" onclick="toggleMenu()">&#9776;</div>
         </div>
+        <!-- Hamburger Icon -->
+        <div class="hamburger-icon" onclick="toggleMenu()">&#9776;</div>
     </header>
 
     <!-- Main Content -->
     <main>
         <section>
-            <h1 id="post-title">Loading...</h1>
-            <div id="post-date" class="post-date">Loading...</div>
-            <div id="post-content" class="post-content">Loading...</div>
-
-            <!-- Social Sharing Buttons -->
-            <div class="social-share">
-                <a id="share-twitter" href="#" target="_blank" class="fab fa-twitter"></a>
-                <a id="share-facebook" href="#" target="_blank" class="fab fa-facebook-f"></a>
-                <a id="share-linkedin" href="#" target="_blank" class="fab fa-linkedin-in"></a>
-                <a id="share-email" href="#" class="fas fa-envelope"></a>
-            </div>
+            <h1>Blog Post</h1>
+            <div class="post-date" id="post-date"></div>
+            <h2 id="post-title" class="post-title"></h2>
+            <div id="post-content" class="post-content"></div>
         </section>
     </main>
 
@@ -305,7 +265,7 @@
                 <a href="privacy.html">Privacy Policy</a>
             </nav>
             <div class="footer-email">
-                <p>Contact us at: <a href="mailto:itzme.eduhub.contact@gmail.com">chwlla@gmail.com</a></p>
+                <p>Contact us at: <a href="mailto:itzme.eduhub.contact@gmail.com">itzme.eduhub.contact@gmail.com</a></p>
             </div>
         </div>
     </footer>
