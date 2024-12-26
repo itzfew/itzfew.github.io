@@ -186,6 +186,12 @@
             margin-bottom: 10px;
             color: #007bff;
         }
+
+        /* Custom CSS for embedded styles */
+        .embedded-style {
+            margin-top: 20px;
+        }
+
     </style>
 
     <script>
@@ -209,10 +215,19 @@
                 const postTitle = document.getElementById('post-title');
                 const postDate = document.getElementById('post-date');
                 const postContent = document.getElementById('post-content');
+                const postEmbeddedStyle = document.getElementById('post-embedded-style');
 
                 postTitle.textContent = post.title;
                 postDate.textContent = post.date;
-                postContent.textContent = post.content;
+
+                // Inject HTML content directly (without escaping it)
+                postContent.innerHTML = post.content;
+
+                // If there's embedded CSS or additional styles, inject them too
+                if (post.embeddedCss) {
+                    postEmbeddedStyle.innerHTML = post.embeddedCss;
+                }
+
             } else {
                 document.getElementById('post-content').textContent = "Post not found.";
             }
@@ -252,6 +267,9 @@
             <div class="post-date" id="post-date"></div>
             <h2 id="post-title" class="post-title"></h2>
             <div id="post-content" class="post-content"></div>
+
+            <!-- Embedded CSS (if any) -->
+            <div id="post-embedded-style" class="embedded-style"></div>
         </section>
     </main>
 
