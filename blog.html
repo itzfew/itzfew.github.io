@@ -55,13 +55,19 @@
             height: auto;
             border-radius: 50%; /* Optional: to make logo circular */
         }
+        /* Ensure anchor tag doesn't look like a link */
+.top-nav a {
+    text-decoration: none; /* Removes the underline */
+    color: inherit; /* Inherit the color from parent, so site name remains normal */
+}
 
-        .site-name {
-            font-size: 24px;
-            font-weight: bold;
-            color: #007bff;
-            margin-left: 10px; /* Adds space between logo and name */
-        }
+.site-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: black; /* Make the site name appear as regular text (black color) */
+    margin-left: 10px; /* Adds space between logo and name */
+}
+
 
         .nav-links {
             display: flex;
@@ -273,12 +279,15 @@ async function loadPosts() {
 <!-- Top Navigation Bar -->
     <header>
         <div class="top-nav">
+            <a href="index.html">
             <div class="logo-container">
                 <!-- Logo -->
+                
                 <img src="img/logo.png" alt="Logo" class="logo">
                 <!-- Website Name -->
                 <div class="site-name">Edu.hub</div>
-            </div>
+                
+            </div></a>
             <nav class="nav-links">
                 <!-- Navigation links to actual pages -->
                 <a href="blog.html">Blog</a>
