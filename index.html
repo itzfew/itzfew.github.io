@@ -85,6 +85,40 @@
             font-size: 18px;
         }
 
+        /* Latest Posts */
+        .latest-posts {
+            margin-bottom: 40px;
+        }
+
+        .post-item {
+            margin-bottom: 20px;
+        }
+
+        .post-title {
+            font-size: 22px;
+            color: #007bff;
+        }
+
+        .post-date {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .view-more-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .view-more-button:hover {
+            background-color: #0056b3;
+        }
+
         /* Footer */
         footer {
             background-color: #f8f8f8;
@@ -194,11 +228,14 @@
 
     <!-- Main Content -->
     <main>
-        <section id="blog">
-            <h1>Welcome to Our Blog</h1>
-            <p>Here, you can read the latest posts and updates.</p>
+        <section class="latest-posts">
+            <h1>Latest Posts</h1>
+            <div id="latest-posts-container">
+                <!-- Latest posts will be dynamically inserted here by JavaScript -->
+            </div>
+            <button class="view-more-button" onclick="window.location.href='blog.html'">View More</button>
         </section>
-        
+
         <section id="about">
             <h1>About Us</h1>
             <p>Learn more about our mission and goals.</p>
@@ -229,6 +266,56 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // Function to fetch posts from posts.json and display the latest 3 posts
+        async function loadLatestPosts() {
+            const response = await fetch('posts.json'); // Fetch posts from posts.json
+            const posts = await response.json(); // Parse the JSON data
+
+            // Sort posts by date (newest first)
+            posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            // Select the latest 3 posts
+            const latestPosts = posts.slice(0, 3);
+
+            // Get the container to insert posts into
+            const container = document.getElementById('latest-posts-container');
+            
+            latestPosts.forEach(post => {
+                const postItem = document.createElement('div');
+                postItem.classList.add('post-item');
+
+                // Post date
+                const postDate = document.createElement('div');
+                postDate.classList.add('post-date');
+                postDate.textContent = post.date;
+
+                // Post title
+                const postTitle = document.createElement('h2');
+                postTitle.classList.add('post-title');
+                const postLink = document.createElement('a');
+                postLink.href = `post.html?id=${post.id}`;
+                postLink.textContent = post.title;
+                postTitle.appendChild(postLink);
+
+                // Post excerpt
+                const postExcerpt = document.createElement('p');
+                postExcerpt.textContent = post.excerpt;
+
+                // Append everything to postItem
+                postItem.appendChild(postDate);
+                postItem.appendChild(postTitle);
+                postItem.appendChild(postExcerpt);
+
+                // Append postItem to container
+                container.appendChild(postItem);
+            });
+        }
+
+        // Call the function to load the posts when the page is loaded
+        window.onload = loadLatestPosts;
+    </script>
 
 </body>
 </html>
