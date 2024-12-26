@@ -1,11 +1,12 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edu.hub - Blog Website</title>
+    <title>Home - My Website</title>
+
     <style>
-/* Basic Reset */
+        /* Basic Reset */
         * {
             margin: 0;
             padding: 0;
@@ -23,7 +24,6 @@
             padding: 0;
         }
 
-        
         /* Top Navigation Bar */
         .top-nav {
             display: flex;
@@ -39,6 +39,7 @@
             display: flex;
             align-items: center;
         }
+
         /* Hamburger icon positioned at the top-right corner */
         .hamburger-icon {
             display: none;
@@ -47,8 +48,8 @@
             position: absolute;
             top: 10px;
             right: 0px; /* Position it at the top-right corner */
-         
         }
+
         .logo-container img {
             width: 50px; /* Adjust size */
             height: auto;
@@ -76,6 +77,7 @@
         .nav-links a:hover {
             color: #007bff;
         }
+
         footer {
             background-color: #f8f8f8;
             padding: 20px;
@@ -119,7 +121,7 @@
             color: #007bff;
         }
 
-/* Responsive Design */
+        /* Responsive Design */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -146,63 +148,133 @@
                 text-align: center;
             }
         }
-        
+
         /* Main Content */
         main {
-            flex: 1; /* Ensures main content expands to fill space */
+            flex: 1;
             padding: 40px;
         }
 
-        section {
-            margin-bottom: 40px;
-        }
-
-        section h1 {
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
-
-        section p {
-            font-size: 18px;
-        }
-
-        /* Latest Posts */
+        /* Section for Latest Posts */
         .latest-posts {
             margin-bottom: 40px;
         }
 
-        .post-item {
+        .latest-posts h2 {
+            font-size: 28px;
             margin-bottom: 20px;
-        }
-
-        .post-title {
-            font-size: 22px;
             color: #007bff;
         }
 
-        .post-date {
-            font-size: 14px;
-            color: #555;
+        .latest-posts ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .latest-post-item {
+            margin-bottom: 20px;
+            padding: 15px 0;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .latest-post-item h3 {
+            font-size: 22px;
             margin-bottom: 10px;
         }
 
-        .view-more-button {
+        .latest-post-item p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .latest-post-item a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .latest-post-item a:hover {
+            color: #0056b3;
+        }
+
+        /* About Section */
+        .about-section {
+            margin-bottom: 40px;
+        }
+
+        .about-section h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+
+        .about-section p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .view-more {
+            display: inline-block;
             margin-top: 20px;
             padding: 10px 20px;
-            color: black;
-            border: none;
-            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
             font-size: 16px;
         }
 
-        .view-more-button:hover {
+        .view-more:hover {
             background-color: #0056b3;
         }
 
     </style>
+
+    <script>
+        // Function to toggle the visibility of the navigation menu
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
+
+        // Function to fetch and display the latest 3 posts dynamically from posts.json
+        async function loadLatestPosts() {
+            const response = await fetch('posts.json'); // Fetch posts from posts.json
+            const posts = await response.json(); // Parse the JSON data
+
+            // Sort the posts by date in descending order (latest posts first)
+            posts.sort((a, b) => {
+                return new Date(b.date) - new Date(a.date);
+            });
+
+            const latestPosts = posts.slice(0, 3); // Get the latest 3 posts
+            const postList = document.getElementById('latest-posts-list');
+            latestPosts.forEach(post => {
+                const postItem = document.createElement('li');
+                postItem.classList.add('latest-post-item');
+
+                // Post title
+                const postTitle = document.createElement('h3');
+                const postLink = document.createElement('a');
+                postLink.href = `post.html?id=${post.id}`;
+                postLink.textContent = post.title;
+                postTitle.appendChild(postLink);
+
+                // Post excerpt
+                const postExcerpt = document.createElement('p');
+                postExcerpt.textContent = post.excerpt;
+
+                postItem.appendChild(postTitle);
+                postItem.appendChild(postExcerpt);
+                postList.appendChild(postItem);
+            });
+        }
+
+        // Load latest posts when the page is loaded
+        window.onload = loadLatestPosts;
+    </script>
+
 </head>
 <body>
-
     <!-- Top Navigation Bar -->
     <header>
         <div class="top-nav">
@@ -219,34 +291,28 @@
                 <a href="https://itzfew.github.io/Blog/Com_studymaterial_app.apk">Install APK</a>
                 <a href="https://t.me/FREESTUDYApp">Telegram</a>
             </nav>
-            <!-- Hamburger Icon -->
-            <div class="hamburger-icon" onclick="toggleMenu()">&#9776;</div>
         </div>
+        <!-- Hamburger Icon -->
+        <div class="hamburger-icon" onclick="toggleMenu()">&#9776;</div>
     </header>
 
     <!-- Main Content -->
     <main>
+        <!-- Latest Posts Section -->
         <section class="latest-posts">
-            <h1>Latest Posts</h1>
-            <div id="latest-posts-container">
-                <!-- Latest posts will be dynamically inserted here by JavaScript -->
-            </div>
-            <button class="view-more-button" onclick="window.location.href='blog.html'">View More</button>
+            <h2>Latest Blog Posts</h2>
+            <ul id="latest-posts-list">
+                <!-- Latest posts will be inserted here dynamically -->
+            </ul>
+            <a href="blog.html" class="view-more">View More Posts</a>
         </section>
 
-        <section id="about">
-            <h1>About Us</h1>
-            <p>Learn more about our mission and goals.</p>
-        </section>
-
-        <section id="install">
-            <h1>Install Our APK</h1>
-            <p>Download the APK to get started with our app.</p>
-        </section>
-
-        <section id="telegram">
-            <h1>Join Our Telegram Channel</h1>
-            <p>Stay updated by joining our Telegram channel.</p>
+        <!-- About Section -->
+        <section class="about-section">
+            <h2>About Edu.hub</h2>
+            <p>
+                Edu.hub is your go-to platform for the latest educational resources, study materials, and guides. Our goal is to provide students with easy access to quality content that can help them excel in their academic journey. Stay tuned for new articles, tutorials, and much more. We are constantly evolving to meet your needs and support your educational success.
+            </p>
         </section>
     </main>
 
@@ -260,66 +326,10 @@
                 <a href="privacy.html">Privacy Policy</a>
             </nav>
             <div class="footer-email">
-                <p>Contact us at: <a href="mailto:itzme.eduhub.contact@gmail.com">chwlla@gmail.com</a></p>
+                <p>Contact us at: <a href="mailto:itzme.eduhub.contact@gmail.com">itzme.eduhub.contact@gmail.com</a></p>
             </div>
         </div>
     </footer>
-
-    <script>
-        // Function to toggle the visibility of the navigation menu
-        function toggleMenu() {
-            const navLinks = document.querySelector('.nav-links');
-            navLinks.classList.toggle('active');
-        }
-
-        // Function to fetch posts from posts.json and display the latest 3 posts
-        async function loadLatestPosts() {
-            const response = await fetch('posts.json'); // Fetch posts from posts.json
-            const posts = await response.json(); // Parse the JSON data
-
-            // Sort posts by date (newest first)
-            posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-            // Select the latest 3 posts
-            const latestPosts = posts.slice(0, 3);
-
-            // Get the container to insert posts into
-            const container = document.getElementById('latest-posts-container');
-            
-            latestPosts.forEach(post => {
-                const postItem = document.createElement('div');
-                postItem.classList.add('post-item');
-
-                // Post date
-                const postDate = document.createElement('div');
-                postDate.classList.add('post-date');
-                postDate.textContent = post.date;
-
-                // Post title
-                const postTitle = document.createElement('h2');
-                postTitle.classList.add('post-title');
-                const postLink = document.createElement('a');
-                postLink.href = `post.html?id=${post.id}`;
-                postLink.textContent = post.title;
-                postTitle.appendChild(postLink);
-
-                // Post excerpt
-                const postExcerpt = document.createElement('p');
-                postExcerpt.textContent = post.excerpt;
-
-                // Append everything to postItem
-                postItem.appendChild(postDate);
-                postItem.appendChild(postTitle);
-                postItem.appendChild(postExcerpt);
-
-                // Append postItem to container
-                container.appendChild(postItem);
-            });
-        }
-
-        // Call the function to load the posts when the page is loaded
-        window.onload = loadLatestPosts;
-    </script>
 
 </body>
 </html>
