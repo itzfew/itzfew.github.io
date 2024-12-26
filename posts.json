@@ -1,14 +1,16 @@
 [
   {
-    "title": "First Post",
-    "date": "2024-12-26",
-    "excerpt": "This is an excerpt of the first post. It gives a brief idea about the content.",
-    "content": "Welcome to my blog! This is the content of the first post.\n\n## Introduction\nThis blog is created using a static site with dynamic content loading.\n\nStay tuned for more posts!"
+    "id": "1",
+    "title": "Face-Parsing using BiSeNet",
+    "date": "Nov 29, 2024",
+    "excerpt": "BiSeNet (Bilateral Segmentation Network) is a state-of-the-art model for real-time semantic segmentation. This post discusses how BiSeNet works and its applications.",
+    "content": "BiSeNet (Bilateral Segmentation Network) is a state-of-the-art model for real-time semantic segmentation. Initially proposed in the paper Bilateral Segmentation Network for Real-time Semantic Segmentation... More detailed content goes here."
   },
   {
-    "title": "Second Post",
-    "date": "2024-12-27",
-    "excerpt": "This is the second post. It talks about the importance of blogging.",
-    "content": "In this post, we discuss the importance of blogging and how it can help you share your ideas with the world.\n\n## Why Blog?\nBlogging is an excellent way to communicate and build a community online."
+    "id": "2",
+    "title": "Exploring Neural Networks",
+    "date": "Dec 1, 2024",
+    "excerpt": "This post explores the world of neural networks, their architecture, and applications in modern AI systems.",
+    "content": "Neural networks have revolutionized many areas of AI and deep learning. In this post, we dive deep into how neural networks work, different types of architectures, and their applications in real-world AI systems."
   }
 ]
