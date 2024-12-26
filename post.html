@@ -199,52 +199,53 @@
     </style>
 
     <script>
-        // Function to toggle the visibility of the navigation menu
-        function toggleMenu() {
-            const navLinks = document.querySelector('.nav-links');
-            navLinks.classList.toggle('active');
-        }
-        // Function to fetch and display the full post based on the id in the query string
-        async function loadPost() {
-            const urlParams = new URLSearchParams(window.location.search); // Get the query string parameters
-            const postId = urlParams.get('id'); // Get the post id from the query string
+    // Function to toggle the visibility of the navigation menu
+    function toggleMenu() {
+        const navLinks = document.querySelector('.nav-links');
+        navLinks.classList.toggle('active');
+    }
 
-            if (!postId) {
-                alert('Post ID is missing!');
-                return;
-            }
+    // Function to fetch and display the full post based on the id in the query string
+    async function loadPost() {
+        const urlParams = new URLSearchParams(window.location.search); // Get the query string parameters
+        const postId = urlParams.get('id'); // Get the post id from the query string
 
-            const response = await fetch('posts.json'); // Fetch posts from posts.json
-            const posts = await response.json(); // Parse the JSON data
-
-            // Find the post by id
-            const post = posts.find(p => p.id === postId);
-
-            if (!post) {
-                alert('Post not found!');
-                return;
-            }
-
-            // Insert post content into the page
-            document.getElementById('post-title').textContent = post.title;
-            document.getElementById('post-date').textContent = post.date;
-            document.getElementById('post-content').textContent = post.content;
-
-            // Create share links dynamically
-            const twitterLink = `https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(window.location.href)}`;
-            const facebookLink = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
-            const linkedinLink = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(window.location.href)}&title=${encodeURIComponent(post.title)}`;
-            const emailLink = `mailto:?subject=${encodeURIComponent(post.title)}&body=${encodeURIComponent(post.content)}%0D%0A%0D%0A${encodeURIComponent(window.location.href)}`;
-
-            document.getElementById('share-twitter').href = twitterLink;
-            document.getElementById('share-facebook').href = facebookLink;
-            document.getElementById('share-linkedin').href = linkedinLink;
-            document.getElementById('share-email').href = emailLink;
+        if (!postId) {
+            alert('Post ID is missing!');
+            return;
         }
 
-        // Load the post when the page is loaded
-        window.onload = loadPost;
-    </script>
+        const response = await fetch('posts.json'); // Fetch posts from posts.json
+        const posts = await response.json(); // Parse the JSON data
+
+        // Find the post by id
+        const post = posts.find(p => p.id === postId);
+
+        if (!post) {
+            alert('Post not found!');
+            return;
+        }
+
+        // Insert post content into the page
+        document.getElementById('post-title').textContent = post.title;
+        document.getElementById('post-date').textContent = post.date;
+        document.getElementById('post-content').innerHTML = post.content; // Use innerHTML here to render HTML
+
+        // Create share links dynamically
+        const twitterLink = `https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(window.location.href)}`;
+        const facebookLink = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
+        const linkedinLink = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(window.location.href)}&title=${encodeURIComponent(post.title)}`;
+        const emailLink = `mailto:?subject=${encodeURIComponent(post.title)}&body=${encodeURIComponent(post.content)}%0D%0A%0D%0A${encodeURIComponent(window.location.href)}`;
+
+        document.getElementById('share-twitter').href = twitterLink;
+        document.getElementById('share-facebook').href = facebookLink;
+        document.getElementById('share-linkedin').href = linkedinLink;
+        document.getElementById('share-email').href = emailLink;
+    }
+
+    // Load the post when the page is loaded
+    window.onload = loadPost;
+</script>
 
 </head>
 <body>
