@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <style>
-        /* Basic Reset */
+/* Basic Reset */
         * {
             margin: 0;
             padding: 0;
@@ -78,6 +78,7 @@
             position: absolute;
             top: 10px;
             right: 0px; /* Position it at the top-right corner */
+         
         }
 
         /* Main Content */
@@ -168,7 +169,7 @@
             color: #007bff;
         }
 
-        /* Responsive Design */
+/* Responsive Design */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -198,67 +199,67 @@
     </style>
 
     <script>
-        // Function to fetch and display the full post based on the id in the query string
-        async function loadPost() {
-            const urlParams = new URLSearchParams(window.location.search); // Get the query string parameters
-            const postId = urlParams.get('id'); // Get the post id from the query string
+    // Function to fetch and display the full post based on the id in the query string
+    async function loadPost() {
+        const urlParams = new URLSearchParams(window.location.search); // Get the query string parameters
+        const postId = urlParams.get('id'); // Get the post id from the query string
 
-            if (!postId) {
-                alert('Post ID is missing!');
-                return;
-            }
-
-            const response = await fetch('posts.json'); // Fetch posts from posts.json
-            const posts = await response.json(); // Parse the JSON data
-
-            // Sort the posts by date (descending order)
-            posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-            // Find the post by id
-            const post = posts.find(p => p.id === postId);
-
-            if (!post) {
-                alert('Post not found!');
-                return;
-            }
-
-            // Insert post content into the page
-            document.getElementById('post-title').textContent = post.title;
-            document.getElementById('post-date').textContent = post.date;
-            document.getElementById('post-content').innerHTML = post.content; // Use innerHTML here to render HTML
-
-            // Create share links dynamically
-            const twitterLink = `https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(window.location.href)}`;
-            const facebookLink = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
-            const linkedinLink = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(window.location.href)}&title=${encodeURIComponent(post.title)}`;
-            const emailLink = `mailto:?subject=${encodeURIComponent(post.title)}&body=${encodeURIComponent(post.content)}%0D%0A%0D%0A${encodeURIComponent(window.location.href)}`;
-
-            document.getElementById('share-twitter').href = twitterLink;
-            document.getElementById('share-facebook').href = facebookLink;
-            document.getElementById('share-linkedin').href = linkedinLink;
-            document.getElementById('share-email').href = emailLink;
-
-            // Optionally: You can display multiple posts (if required)
-            // Here, we just load the post that matches the 'id' query parameter, but you can add a loop to display all posts in sorted order
+        if (!postId) {
+            alert('Post ID is missing!');
+            return;
         }
 
-        // Load the post when the page is loaded
-        window.onload = loadPost;
-    </script>
+        const response = await fetch('posts.json'); // Fetch posts from posts.json
+        const posts = await response.json(); // Parse the JSON data
+
+        // Sort the posts by date (descending order)
+        posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        // Find the post by id
+        const post = posts.find(p => p.id === postId);
+
+        if (!post) {
+            alert('Post not found!');
+            return;
+        }
+
+        // Insert post content into the page
+        document.getElementById('post-title').textContent = post.title;
+        document.getElementById('post-date').textContent = post.date;
+        document.getElementById('post-content').innerHTML = post.content; // Use innerHTML here to render HTML
+
+        // Create share links dynamically
+        const twitterLink = `https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(window.location.href)}`;
+        const facebookLink = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
+        const linkedinLink = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(window.location.href)}&title=${encodeURIComponent(post.title)}`;
+        const emailLink = `mailto:?subject=${encodeURIComponent(post.title)}&body=${encodeURIComponent(post.content)}%0D%0A%0D%0A${encodeURIComponent(window.location.href)}`;
+
+        document.getElementById('share-twitter').href = twitterLink;
+        document.getElementById('share-facebook').href = facebookLink;
+        document.getElementById('share-linkedin').href = linkedinLink;
+        document.getElementById('share-email').href = emailLink;
+
+        // Optionally: You can display multiple posts (if required)
+        // Here, we just load the post that matches the 'id' query parameter, but you can add a loop to display all posts in sorted order
+    }
+
+    // Load the post when the page is loaded
+    window.onload = loadPost;
+</script>
+
 
 </head>
 <body>
 
+    
     <!-- Top Navigation Bar -->
     <header>
         <div class="top-nav">
             <div class="logo-container">
-                <!-- Logo with link to the homepage -->
-                <a href="index.html">
-                    <img src="img/logo.png" alt="Logo" class="logo">
-                </a>
-                <!-- Website Name with link to the homepage -->
-                <a href="index.html" class="site-name">Edu.hub</a>
+                <!-- Logo -->
+                <img src="img/logo.png" alt="Logo" class="logo">
+                <!-- Website Name -->
+                <div class="site-name">Edu.hub</div>
             </div>
             <nav class="nav-links">
                 <!-- Navigation links to actual pages -->
