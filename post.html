@@ -199,6 +199,11 @@
     </style>
 
     <script>
+        // Function to toggle the visibility of the navigation menu
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
     // Function to fetch and display the full post based on the id in the query string
     async function loadPost() {
         const urlParams = new URLSearchParams(window.location.search); // Get the query string parameters
