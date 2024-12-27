@@ -38,21 +38,22 @@
     </style>
 </head>
 <body>
-    <h1>Download Marks Data as .json File</h1>
+    <h1>Marks Data Download</h1>
 
     <div class="footer">
-        <p>If you have marks data encoded in the URL, it will be parsed and prepared for download as a .json file.</p>
-        <button class="btn" onclick="generateDownloadFile()">Download JSON File</button>
+        <p>The download will start automatically with the data from the URL.</p>
     </div>
 
     <script>
+        // Function to get the value of a URL query parameter by name
         function getQueryParam(name) {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(name);
         }
 
+        // Function to generate and download the JSON file
         function generateDownloadFile() {
-            // Step 1: Extract JSON data from URL query string
+            // Step 1: Extract JSON data from the URL query string
             const jsonData = getQueryParam('json');
 
             if (jsonData) {
@@ -77,6 +78,11 @@
                 alert('No JSON data found in the URL.');
             }
         }
+
+        // Automatically trigger the download when the page loads
+        window.onload = function() {
+            generateDownloadFile();
+        };
     </script>
 
 </body>
