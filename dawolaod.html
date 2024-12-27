@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Download Data</title>
+    <title>Download Marks Data</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -16,41 +16,66 @@
             color: #333;
         }
 
-        pre {
-            background-color: #f0f0f0;
-            padding: 20px;
+        .footer {
+            margin-top: 30px;
+            font-size: 14px;
+        }
+
+        .btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: 2px solid #ccc;
             border-radius: 5px;
-            white-space: pre-wrap; /* Ensures long data wraps */
-            word-wrap: break-word; /* Prevents overflow */
-            text-align: left;
-            max-width: 90%;
-            margin: 0 auto;
+            background-color: white;
+            color: black;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #ccc;
         }
     </style>
 </head>
 <body>
+    <h1>Download Marks Data as .json File</h1>
 
-    <h1>Received Data</h1>
-    <pre id="jsonData">Loading...</pre>
+    <div class="footer">
+        <p>If you have marks data encoded in the URL, it will be parsed and prepared for download as a .json file.</p>
+        <button class="btn" onclick="generateDownloadFile()">Download JSON File</button>
+    </div>
 
     <script>
-        // Step 1: Extract the `json` query parameter from the URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const jsonData = urlParams.get('json'); // Get the "json" parameter
+        function getQueryParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
 
-        // Step 2: Decode and parse the JSON data
-        if (jsonData) {
-            try {
-                // Decode the JSON data and parse it
-                const parsedData = JSON.parse(decodeURIComponent(jsonData));
+        function generateDownloadFile() {
+            // Step 1: Extract JSON data from URL query string
+            const jsonData = getQueryParam('json');
 
-                // Step 3: Display the data in a formatted way
-                document.getElementById('jsonData').textContent = JSON.stringify(parsedData, null, 2); // Pretty print the JSON
-            } catch (error) {
-                document.getElementById('jsonData').textContent = "Error parsing JSON data: " + error.message;
+            if (jsonData) {
+                try {
+                    // Step 2: Parse the JSON data
+                    const parsedData = JSON.parse(decodeURIComponent(jsonData));
+
+                    // Step 3: Create a Blob from the parsed JSON data
+                    const blob = new Blob([JSON.stringify(parsedData, null, 2)], { type: 'application/json' });
+
+                    // Step 4: Create a temporary link to trigger the download
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = 'marks_data.json';
+
+                    // Step 5: Trigger the download by programmatically clicking the link
+                    link.click();
+                } catch (error) {
+                    alert('Invalid JSON data in the URL.');
+                }
+            } else {
+                alert('No JSON data found in the URL.');
             }
-        } else {
-            document.getElementById('jsonData').textContent = "No JSON data received in the URL.";
         }
     </script>
 
