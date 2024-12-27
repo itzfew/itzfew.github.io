@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marks Distribution for Multiple Tests</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background-color: #f4f4f9;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        .form-container {
+            width: 80%;
+            margin: 0 auto;
+            max-width: 600px;
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .form-row div {
+            width: 48%; /* Allows two input fields in each row */
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: 2px solid black;
+            border-radius: 5px;
+            background-color: white;
+            color: black;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: black;
+            color: white;
+        }
+
+        .chart-container {
+            margin-top: 30px;
+            width: 80%;
+            margin: 0 auto;
+            overflow-x: auto;
+        }
+
+        canvas {
+            height: 300px;
+            width: 100%;
+        }
+
+        .chart-wrapper {
+            margin-bottom: 50px;
+        }
+
+        /* Table container for horizontal scrolling */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            margin: 20px auto;
+        }
+
+        table {
+            width: 100%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            min-width: 600px; /* Ensures table is wide enough to scroll */
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #f0f0f0;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 14px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Enter Marks for a New Test</h2>
+        
+        <div class="form-row">
+            <div>
+                <label for="testNumber">Test Number: </label>
+                <input type="number" id="testNumber" min="1" placeholder="Test Number" required>
+            </div>
+            <div>
+                <label for="physicsMarks">Physics: </label>
+                <input type="number" id="physicsMarks" max="45" required>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div>
+                <label for="chemistryMarks">Chemistry: </label>
+                <input type="number" id="chemistryMarks" max="45" required>
+            </div>
+            <div>
+                <label for="botanyMarks">Botany: </label>
+                <input type="number" id="botanyMarks" max="45" required>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div>
+                <label for="zoologyMarks">Zoology: </label>
+                <input type="number" id="zoologyMarks" max="45" required>
+            </div>
+        </div>
+
+        <button onclick="storeMarks()">Save Marks</button>
+        <button onclick="deleteTest()">Delete Test</button>
+        <button onclick="resetAll()">Reset All Data</button>
+    </div>
+
+    <div class="chart-container">
+        <div class="chart-wrapper">
+            <h2>Correct Marks Distribution</h2>
+            <canvas id="correctMarksChart"></canvas>
+        </div>
+
+        <div class="chart-wrapper">
+            <h2>Incorrect Marks Distribution</h2>
+            <canvas id="incorrectMarksChart"></canvas>
+        </div>
+    </div>
+
+    <div class="form-container">
+        <h2>Test Data Summary</h2>
+        <!-- Table container for horizontal scrolling -->
+        <div class="table-container">
+            <table id="dataSummary">
+                <thead>
+                    <tr>
+                        <th>Test</th>
+                        <th>Physics</th>
+                        <th>Chemistry</th>
+                        <th>Botany</th>
+                        <th>Zoology</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Marks data is stored locally. Refreshing the page will not clear the data unless reset.</p>
+    </div>
+
+    <script>
+        // Initialize an empty cache if it's not present
+        if (!localStorage.getItem('marks')) {
+            localStorage.setItem('marks', JSON.stringify({}));
+        }
+
+        function storeMarks() {
+            const testNumber = document.getElementById('testNumber').value;
+            const physicsMarks = parseInt(document.getElementById('physicsMarks').value);
+            const chemistryMarks = parseInt(document.getElementById('chemistryMarks').value);
+            const botanyMarks = parseInt(document.getElementById('botanyMarks').value);
+            const zoologyMarks = parseInt(document.getElementById('zoologyMarks').value);
+
+            if (testNumber && physicsMarks && chemistryMarks && botanyMarks && zoologyMarks) {
+                const marksData = JSON.parse(localStorage.getItem('marks'));
+                
+                // Save the entered marks for the selected test
+                marksData[`test${testNumber}`] = {
+                    physics: physicsMarks,
+                    chemistry: chemistryMarks,
+                    botany: botanyMarks,
+                    zoology: zoologyMarks
+                };
+
+                // Save to localStorage
+                localStorage.setItem('marks', JSON.stringify(marksData));
+
+                // After saving, update the charts and summary table
+                updateCharts();
+                updateSummaryTable();
+            } else {
+                alert("Please fill in all fields!");
+            }
+        }
+
+        function deleteTest() {
+            const testNumber = document.getElementById('testNumber').value;
+
+            if (testNumber) {
+                const marksData = JSON.parse(localStorage.getItem('marks'));
+
+                // Check if the test exists in the data
+                if (marksData[`test${testNumber}`]) {
+                    // Delete the test data
+                    delete marksData[`test${testNumber}`];
+
+                    // Save the updated data back to localStorage
+                    localStorage.setItem('marks', JSON.stringify(marksData));
+
+                    alert(`Test ${testNumber} deleted successfully!`);
+                    updateCharts(); // Refresh the charts after deletion
+                    updateSummaryTable(); // Refresh the table after deletion
+                } else {
+                    alert(`Test ${testNumber} does not exist.`);
+                }
+            } else {
+                alert("Please enter a valid test number to delete.");
+            }
+        }
+
+        function resetAll() {
+            if (confirm("Are you sure you want to reset all data? This will delete all tests and charts.")) {
+                localStorage.setItem('marks', JSON.stringify({}));
+                updateCharts();
+                updateSummaryTable();
+            }
+        }
+
+        function updateSummaryTable() {
+            const marksData = JSON.parse(localStorage.getItem('marks'));
+            const tableBody = document.getElementById('dataSummary').querySelector('tbody');
+            tableBody.innerHTML = '';
+
+            Object.keys(marksData).forEach(test => {
+                const testData = marksData[test];
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${test.replace('test', '')}</td>
+                    <td>${testData.physics}</td>
+                    <td>${testData.chemistry}</td>
+                    <td>${testData.botany}</td>
+                    <td>${testData.zoology}</td>
+                    <td><button onclick="editTest('${test}')">Edit</button> <button onclick="deleteTestData('${test}')">Delete</button></td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function editTest(testName) {
+            const marksData = JSON.parse(localStorage.getItem('marks'))[testName];
+            document.getElementById('testNumber').value = testName.replace('test', '');
+            document.getElementById('physicsMarks').value = marksData.physics;
+            document.getElementById('chemistryMarks').value = marksData.chemistry;
+            document.getElementById('botanyMarks').value = marksData.botany;
+            document.getElementById('zoologyMarks').value = marksData.zoology;
+        }
+
+        function deleteTestData(testName) {
+            const marksData = JSON.parse(localStorage.getItem('marks'));
+            delete marksData[testName];
+            localStorage.setItem('marks', JSON.stringify(marksData));
+            updateCharts();
+            updateSummaryTable();
+        }
+
+        // Function to update the charts using the stored data
+        function updateCharts() {
+            const marksData = JSON.parse(localStorage.getItem('marks'));
+            const testLabels = Object.keys(marksData);
+
+            // Calculate the correct and incorrect data
+            const correctData = {
+                labels: testLabels,
+                datasets: [
+                    {
+                        label: 'Physics (P)',
+                        data: testLabels.map(test => marksData[test]?.physics || 0),
+                        borderColor: 'blue',
+                        backgroundColor: 'rgba(0, 0, 255, 0.2)',
+                        fill: false,
+                        borderWidth: 2,
+                        pointRadius: 5
+                    },
+                    {
+                        label: 'Chemistry (C)',
+                        data: testLabels.map(test => marksData[test]?.chemistry || 0),
+                        borderColor: 'green',
+                        backgroundColor: 'rgba(0, 255, 0, 0.2)',
+                        fill: false,
+                        borderWidth: 2,
+                        pointRadius: 5
+                    },
+                    {
+                        label: 'Botany (B)',
+                        data: testLabels.map(test => marksData[test]?.botany || 0),
+                        borderColor: 'orange',
+                        backgroundColor: 'rgba(255, 165, 0, 0.2)',
+                        fill: false,
+                        borderWidth: 2,
+                        pointRadius: 5
+                    },
+                    {
+                        label: 'Zoology (Z)',
+                        data: testLabels.map(test => marksData[test]?.zoology || 0),
+                        borderColor: 'red',
+                        backgroundColor: 'rgba(255, 0, 0, 0.2)',
+                        fill: false,
+                        borderWidth: 2,
+                        pointRadius: 5
+                    }
+                ]
+            };
+
+            // Calculate incorrect marks (45 - correct marks)
+            const incorrectData = {
+                labels: testLabels,
+                datasets: [
+                    {
+                        label: 'Physics (P)',
+                        data: testLabels.map(test => 45 - marksData[test]?.physics || 45),
+                        borderColor: 'blue',
+                        backgroundColor: 'rgba(0, 0, 255, 0.2)',
+                        fill: false,
+                        borderWidth: 2,
+                        pointRadius: 5
+                    },
+                    {
+                        label: 'Chemistry (C)',
+                        data: testLabels.map(test => 45 - marksData[test]?.chemistry || 45),
+                        borderColor: 'green',
+                        backgroundColor: 'rgba(0, 255, 0, 0.2)',
+                        fill: false,
+                        borderWidth: 2,
+                        pointRadius: 5
+                    },
+                    {
+                        label: 'Botany (B)',
+                        data: testLabels.map(test => 45 - marksData[test]?.botany || 45),
+                        borderColor: 'orange',
+                        backgroundColor: 'rgba(255, 165, 0, 0.2)',
+                        fill: false,
+                        borderWidth: 2,
+                        pointRadius: 5
+                    },
+                    {
+                        label: 'Zoology (Z)',
+                        data: testLabels.map(test => 45 - marksData[test]?.zoology || 45),
+                        borderColor: 'red',
+                        backgroundColor: 'rgba(255, 0, 0, 0.2)',
+                        fill: false,
+                        borderWidth: 2,
+                        pointRadius: 5
+                    }
+                ]
+            };
+
+            // Update correct marks chart
+            const correctCtx = document.getElementById('correctMarksChart').getContext('2d');
+            new Chart(correctCtx, {
+                type: 'line',
+                data: correctData,
+                options: {
+                    responsive: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 0,
+                                minRotation: 0,
+                                callback: function(value, index) {
+                                    return testLabels[index] ? testLabels[index].replace('test', '') : '';
+                                }
+                            },
+                            grid: {
+                                display: true,
+                                lineWidth: 1
+                            }
+                        },
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Update incorrect marks chart
+            const incorrectCtx = document.getElementById('incorrectMarksChart').getContext('2d');
+            new Chart(incorrectCtx, {
+                type: 'line',
+                data: incorrectData,
+                options: {
+                    responsive: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 0,
+                                minRotation: 0,
+                                callback: function(value, index) {
+                                    return testLabels[index] ? testLabels[index].replace('test', '') : '';
+                                }
+                            },
+                            grid: {
+                                display: true,
+                                lineWidth: 1
+                            }
+                        },
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize the charts and summary table with any saved data
+        updateCharts();
+        updateSummaryTable();
+    </script>
+
+</body>
+</html>
