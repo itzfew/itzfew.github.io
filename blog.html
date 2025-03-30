@@ -7,23 +7,21 @@
     <title>Blog | Waheed Challa</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.23/dist/full.min.css" rel="stylesheet" type="text/css" />
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-<style>
-    .verified-tick {
-  width: 20px;
-  height: 20px;
-  background-color: #1DA1F2; /* Twitter blue color */
-  color: white;
-  font-size: 12px;
-  font-weight: bold;
-  border-radius: 50%; /* Circle shape */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-}
-
-</style>
+    <style>
+        .verified-tick {
+            width: 20px;
+            height: 20px;
+            background-color: #1DA1F2; /* Twitter blue color */
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 50%; /* Circle shape */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+    </style>
 </head>
 
 <body class="bg-gray-900 text-white font-sans leading-normal">
@@ -73,9 +71,15 @@
     <section id="full-post-view" class="hidden max-w-4xl mx-auto mt-10">
         <h2 id="post-title" class="text-3xl font-bold mt-4"></h2>
         <div id="publisher-profile" class="flex items-center mt-4 gap-2">
-            <i class="fas fa-user-circle text-4xl text-gray-400"></i>
+            <!-- Heroicons User Circle -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14c3.866 0 7 1.343 7 4v2H5v-2c0-2.657 3.134-4 7-4zM12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z" />
+            </svg>
             <span class="text-blue-500 font-medium">
-                <i class="fas fa-check-circle"></i> <span id="post-publisher"></span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-500 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12l5 5L20 7" />
+                </svg> 
+                <span id="post-publisher"></span>
             </span>
         </div>
         <p id="post-date" class="text-sm text-gray-400 mt-2"></p>
@@ -113,53 +117,53 @@
             return div.innerHTML;
         }
 
- async function loadPosts() {
-    const postContainer = document.getElementById('post-container');
-    const loadMoreButton = document.getElementById('load-more-btn');
-    const fetchedPosts = [];
+        async function loadPosts() {
+            const postContainer = document.getElementById('post-container');
+            const loadMoreButton = document.getElementById('load-more-btn');
+            const fetchedPosts = [];
 
-    // Fetch posts for the current batch
-    for (let i = 0; i < postsPerPage; i++) {
-        const post = await fetchPost(currentPostIndex);
-        if (!post) break;
-        fetchedPosts.push(post);
-        currentPostIndex++;
-    }
+            // Fetch posts for the current batch
+            for (let i = 0; i < postsPerPage; i++) {
+                const post = await fetchPost(currentPostIndex);
+                if (!post) break;
+                fetchedPosts.push(post);
+                currentPostIndex++;
+            }
 
-    // Sort posts by date (most recent first)
-    fetchedPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+            // Sort posts by date (most recent first)
+            fetchedPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-    // Render the sorted posts
-    for (const post of fetchedPosts) {
-        const postElement = document.createElement('div');
-        postElement.classList.add('py-6', 'border-b', 'border-gray-700');
-        postElement.innerHTML = `
-            <div class="flex items-center mb-2">
-    <!-- Profile Icon -->
-    <i class="fas fa-user-circle text-2xl text-gray-400"></i>
-    <!-- Publisher Name -->
-    <span class="ml-2 text-blue-500 font-medium">${post.publisher}</span>
-    <!-- Verified Tick -->
-    <div class="ml-1 flex items-center">
-        <span class="verified-tick">✔</span>
-    </div>
-</div>
-            <p class="text-sm text-gray-400 mb-2">${new Date(post.date).toLocaleString()}</p>
-            <h2 class="text-2xl font-bold mb-2">
-                <a href="blog.html?id=${post.id}" class="text-blue-400 hover:text-blue-600">${post.title}</a>
-            </h2>
-            <p class="text-sm text-gray-400 mb-4">${convertContent(post.content).slice(0, 100)}...</p>
-            <a href="blog.html?id=${post.id}" class="text-blue-400 hover:text-blue-600">Read more</a>
-        `;
-        postContainer.appendChild(postElement);
-    }
+            // Render the sorted posts
+            for (const post of fetchedPosts) {
+                const postElement = document.createElement('div');
+                postElement.classList.add('py-6', 'border-b', 'border-gray-700');
+                postElement.innerHTML = `
+                    <div class="flex items-center mb-2">
+                        <!-- Profile Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14c3.866 0 7 1.343 7 4v2H5v-2c0-2.657 3.134-4 7-4zM12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z" />
+                        </svg>
+                        <span class="ml-2 text-blue-500 font-medium">${post.publisher}</span>
+                        <div class="ml-1 flex items-center">
+                            <span class="verified-tick">✔</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-2">${new Date(post.date).toLocaleString()}</p>
+                    <h2 class="text-2xl font-bold mb-2">
+                        <a href="blog.html?id=${post.id}" class="text-blue-400 hover:text-blue-600">${post.title}</a>
+                    </h2>
+                    <p class="text-sm text-gray-400 mb-4">${convertContent(post.content).slice(0, 100)}...</p>
+                    <a href="blog.html?id=${post.id}" class="text-blue-400 hover:text-blue-600">Read more</a>
+                `;
+                postContainer.appendChild(postElement);
+            }
 
-    // Hide the load more button if no more posts are available
-    const nextPost = await fetchPost(currentPostIndex);
-    if (!nextPost) {
-        loadMoreButton.style.display = 'none';
-    }
-}
+            // Hide the load more button if no more posts are available
+            const nextPost = await fetchPost(currentPostIndex);
+            if (!nextPost) {
+                loadMoreButton.style.display = 'none';
+            }
+        }
 
         // Function to open full post view
         async function openFullPost(postId) {
