@@ -137,11 +137,11 @@
             <div class="flex items-center mb-2">
     <!-- Profile Icon -->
     <i class="fas fa-user-circle text-2xl text-gray-400"></i>
-    <!-- Publisher Name with verified icon -->
-    <div class="ml-2 flex items-center">
-        <span class="text-blue-500 font-medium">
-            <i class="fas fa-check-circle"></i> ${post.publisher}
-        </span>
+    <!-- Publisher Name -->
+    <span class="ml-2 text-blue-500 font-medium">${post.publisher}</span>
+    <!-- Verified Tick -->
+    <div class="ml-1 flex items-center">
+        <span class="verified-tick">✔</span>
     </div>
 </div>
             <p class="text-sm text-gray-400 mb-2">${new Date(post.date).toLocaleString()}</p>
